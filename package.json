@@ -1,0 +1,35 @@
+{
+  "name": "lycamplus-node-sdk",
+  "version": "0.0.1",
+  "description": "lycamplus-node-sdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --delay"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cheng-Bin/lycamplus-node-sdk.git"
+  },
+  "keywords": [
+    "lycamplus",
+    "online",
+    "live",
+    "sdk"
+  ],
+  "author": "chapin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cheng-Bin/lycamplus-node-sdk/issues"
+  },
+  "homepage": "https://github.com/Cheng-Bin/lycamplus-node-sdk#readme",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "bluebird-nodeify": "^1.1.1",
+    "request": "^2.79.0",
+    "simple-oauth2": "^1.0.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  }
+}
