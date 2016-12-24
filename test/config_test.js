@@ -5,7 +5,7 @@ var config = require('../lib/config');
 describe('Config', function() {
 
     it('it should cover default config', function() {
-        console.log(config);
+        //console.log(config);
     }); 
 
 });
