@@ -17,30 +17,6 @@ setTimeout(function() {
             userObj = null;
         });
 
-
-        describe('User.list()', function() {
-            it('it should have property items', function(done) {
-                userInstance.list({}, function(err, users) {
-                    if (err) {
-                        done(err);
-                    } else {
-                        expect(users).have.property('items');
-                        done();
-                    }
-                });
-            });
-
-            it('it should have property items', function(done) {
-                userInstance.list({})
-                    .then(function(users) {
-                        expect(users).have.property('items');
-                        done();
-                    }).catch(function(err) {
-                        done(err);  
-                    });
-            });
-        });
-
         describe('User.create()', function() {
             it('it should return an obejct', function(done) {
                  var params = {
@@ -61,12 +37,12 @@ setTimeout(function() {
         });
 
         describe('User.auth()', function() {
-            it('the result.username equal userObj.username', function(done) {
-                userInstance.auth(userObj.username, 'password', function(err, result) {
+            it('the result have property success', function(done) {
+                userInstance.auth(userObj.username, 'passdword', function(err, result) {
                     if (err) {
                         done(err);
                     } else {
-                        expect(result.username).to.equal(userObj.username);
+                        expect(result).have.property('success');
                         done();
                     }
                 });
@@ -94,6 +70,7 @@ setTimeout(function() {
                     if (err) {
                         done(err);
                     } else {
+                        console.log(result);
                         expect(result).have.property('token');
                         done();
                     }

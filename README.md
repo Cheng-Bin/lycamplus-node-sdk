@@ -51,12 +51,12 @@ var lycamPlus = new LycamPlus(config);
 获取 User 对象并进行操作
 
 ```javascript
-var userInstance = lycamPlus.newUser(); 
+var userInstance = lycamPlus.newUser();
 ```
 
 **1. `创建用户`**
 
-创建用户到 Lycam+ 系统中 。以便用户操作 API 接口鉴权使用 。
+创建用户到 Lycam+ 系统中 ，以便用户操作 API 接口鉴权使用 。
 ```
 var params = {
     username: 'admin123',
@@ -67,7 +67,7 @@ userInstance.create(params, function(err, result) {
     // 您的代码
 });
 ```
-SDK 的所有异步 API，我们都提供了 callback 和 promise 两种返回操作。所以，您也可以使用如下方式 ：
+该 SDK 所有 API ，我们都提供了 callback 和 Promise 两种返回操作 。所以 ，您也可以使用如下方式 ：
 ```
 var params = {
     username: 'admin123',
@@ -83,36 +83,86 @@ userInstance.create(params)
             });
 ```
 
-**2. `用户密码验证`**
+**请求参数**
+| 请求参数       | 是否必须         | 数据类型          | 参数说明                                 |
+| ------------- | :-------------: | :-------------: | :-------------------------------------: |
+| username      | false           | string          | 用户名，长度为6-80位，如果为空将随机生成      |
+| password      | false           | string          | 用户密码，长度8-16位，如果为空将随机生成      |
 
-如果您不想在自己的后台系统中做密码验证功能，可以直接使用我们给您提供的验证接口 。
+**返回字段**
+| 返回字段       | 数据类型         | 参数说明                                 |
+| ------------- | :-------------: | :-------------------------------------: |
+| username      | string          | 用户名                                   |
+| uuid          | string          | 用户唯一身份标识                           |
+| password      | string          | 用户密码（如果密码为随机生成，才返回此字段）    |
+| success       | bool            | 成功标志，成功 true，失败 false             |
+
+**2. `用户token获取`**
+
+用户访问Lycam+资源操作接口（比如：推流、收看）时需要用户鉴权，我们使用token进行验证 。
+```
+userInstance.assume('uuid', '*', function(err, result) {
+    // 您的代码
+});
+```
+
+**请求参数**
+| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
+| ------------- | :-------------: | :-------------: | :-----------------------: |
+| uuid          | true            | string          | 用户唯一身份标识( 即uuid )   |
+
+**返回字段**
+| 返回字段       | 数据类型         | 参数说明                                          |
+| ------------- | :-------------: | :---------------------------------------------: |
+| success       | bool            | 成功标志，成功 true，失败false                      |
+| scope         | string          | 授权资源范围，`*`表示所有资源                        |
+| token         | json object     | token对象 。包括 access_token，expires_in 字段等... |
+
+**3. `用户密码验证`**
+
+如果您不想在自己的后台系统中做密码验证功能 ，可以直接使用我们给您提供的验证接口 。
 ```
 userInstance.auth('username', 'password', function(err, result) {
     // 您的代码
 });
 ```
 
-**3. `更新用户密码`**
+**请求参数**
+| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
+| ------------- | :-------------: | :-------------: | :-----------------------: |
+| username      | true            | string          | 用户名，长度为6-80位         |
+| password      | true            | string          | 用户新密码，长度8-16位       |
 
-如果您不想在自己的后台系统中做密码修改功能，可以直接使用我们给您提供的修改接口 。
+**返回字段**
+| 返回字段       | 数据类型         | 参数说明                            |
+| ------------- | :-------------: | :-------------------------------: |
+| success       | bool            | 成功标志，成功 true，失败false       |
+| username      | string          | 用户名                             |
+| uuid          | string          | 用户用户唯一身份标识（ 登录成功时返回 ）|
+
+**4. `更新用户密码`**
+
+如果您不想在自己的后台系统中做密码修改功能 ，可以直接使用我们给您提供的修改接口 。
 ```
 userInstance.updatePassword('username', 'newpassword', function(err, result) {
     // 您的代码
 });
 ```
 
-**4. `用户token获取`**
+**请求参数**
+| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
+| ------------- | :-------------: | :-------------: | :-----------------------: |
+| username      | true            | string          | 用户名，长度为6-80位         |
+| password      | true            | string          | 用户新密码，长度8-16位       |
 
-用户访问Lycam+资源操作接口（比如：推流、收看）时需要用户鉴权，我们使用token进行验证 。
-```
-userInstance.assume(uuid, '*', function(err, result) {
-    // 您的代码
-});
-```
+**返回字段**
+| 返回字段       | 数据类型         | 参数说明                         |
+| ------------- | :-------------: | :----------------------------: |
+| success       | bool            | 成功标志，成功 true，失败false    |
 
 **5. `查询用户`**
 
-使用关键字查询已经注册到 Lycam+ 系统中的用户，便于您做第三方逻辑 。
+使用关键字查询已经注册到 Lycam+ 系统中的用户 ，便于您做第三方逻辑 。
 ```
 var params = {
     username: 'username',
@@ -123,29 +173,37 @@ userInstance.search(params, function(err, result) {
 });
 ```
 
-**6. `获取用户列表`**
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                     |
+| -------------- | :-------------: | :-------------: | :--------------------------:|
+| username       | true            | string          | 用户名                       |
+| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行     |
+| page           | false           | int             | 返回第几页                    |
+| sort           | false           | string          | 排序字段（ id， name， created ）|
+| order          | false           | string          | 排序方向（ asc，desc ）         |
 
-获取已经注册到 Lycam+ 系统中的用户列表，便于您做第三方逻辑 。
-```javascript
-userInstance.list({}, function(err, users) {
-   // 您的代码
-});
-```
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                         |
+| ------------------ | :-------------: | :----------------------------: |
+| totalItems         | int             | 记录总数                        |
+| resultsPerPage     | int             | 每一页数量                       |
+| nextPageAvailable  | bool            | 是否有下一页                     | 
+| items              | array           | 用户清单数组                     |
 
 ## Stream 对象
 
 获取 Stream 对象并进行操作
 
 ```javascript
-var streamInstance = lycamPlus.newStream(); 
+var streamInstance = lycamPlus.newStream();
 ```
 
 **1. `创建视频流`**
 
-在 Lycam+ 后台系统中创建一条视频流 。
+在 Lycam+ 后台系统中创建一条视频流 。 用于返回给终端用户或实现您自己的业务 。
 ```
 var params = {
-    user: 'uuid', 
+    user: 'uuid',
     title: 'test',
     ...
 };
@@ -153,6 +211,42 @@ streamInstance.create(params, function(err, result) {
    // 您的代码
 });
 ```
+
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
+| -------------- | :-------------: | :-------------: | :---------------------------:|
+| uuid           | false           | string          | 用户唯一身份标识( 即uuid )      |
+| title          | false           | string          | 视频流标题                     |
+| description    | false           | string          | 视频流描述                     |
+| thumbnailUrl   | false           | string          | 视频流封面地址                  | 
+| startLat       | false           | float           | 开始视频的维度坐标               |
+| startLon       | false           | float           | 开始视频的经度坐标               |
+| country        | false           | string          | 国家                           |
+| state          | false           | string          | 省份                           |
+| city           | false           | string          | 城市                           |
+| privacy        | false           | bool            | 是否私有视频（ true是，false否 ） |
+| extraInfo      | false           | json object     | 自定义用户信息，格式为 json       |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                       |
+| ------------------ | :-------------: | :--------------------------: |
+| streamId           | string          | stramId ( 视频流标识 )         |
+| status             | string          | 直播状态(live， over，ready)   |
+| streamUrls         | json object     | 视频播放资源列表                |
+| uploadUrl          | string          | 推流地址                       |
+| chatUrl            | string          | 消息服务器地址                  |
+| chatChannel        | string          | 消息服务器频道                  |
+| resourceUrl        | string          | 视屏 HTML 主页地址              |
+| title              | string          | 视频流标题                     |
+| description        | string          | 视频流描述                     |
+| thumbnailUrl       | string          | 视频流封面地址                  | 
+| startLat           | float           | 开始视频的维度坐标               |
+| startLon           | float           | 开始视频的经度坐标               |
+| country            | string          | 国家                           |
+| state              | string          | 省份                           |
+| city               | string          | 城市                           |
+| privacy            | bool            | 是否私有视频（ true是，false否 ） |
+| extraInfo          | object          | 自定义用户信息，格式为 json       |
 
 **2. `更新指定ID视频流`**
 
@@ -163,11 +257,49 @@ var params = {
     ...
 };
 streamInstance.update('streamId', params, function(err, result) {
-    // 您的代码                    
+    // 您的代码
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
+| -------------- | :-------------: | :-------------: | :---------------------------:|
+| title          | false           | string          | 视频流标题                     |
+| description    | false           | string          | 视频流描述                     |
+| thumbnailUrl   | false           | string          | 视频流封面地址                  | 
+| startLat       | false           | float           | 开始视频的维度坐标               |
+| startLon       | false           | float           | 开始视频的经度坐标               |
+| endLat         | false           | float           | 视频当前的维度坐标               |
+| endLon         | false           | float           | 视频当前的经度坐标               |
+| country        | false           | string          | 国家                           |
+| state          | false           | string          | 省份                           |
+| city           | false           | string          | 城市                           |
+| privacy        | false           | bool            | 是否私有视频（ true是，false否 ） |
+| extraInfo      | false           | json object     | 自定义用户信息，格式为 json       |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                       |
+| ------------------ | :-------------: | :--------------------------: |
+| streamId           | string          | stramId ( 视频流标识 )         |
+| status             | string          | 直播状态(live， over，ready)   |
+| streamUrls         | json object     | 视频播放资源列表                |
+| uploadUrl          | string          | 推流地址                       |
+| chatUrl            | string          | 消息服务器地址                  |
+| chatChannel        | string          | 消息服务器频道                  |
+| resourceUrl        | string          | 视屏 HTML 主页地址              |
+| title              | string          | 视频流标题                     |
+| description        | string          | 视频流描述                     |
+| thumbnailUrl       | string          | 视频流封面地址                  | 
+| country            | string          | 国家                           |
+| state              | string          | 省份                           |
+| city               | string          | 城市                           |
+| privacy            | bool            | 是否私有视频（ true是，false否 ） |
+| ...                |                 | 其它视频流参数
+
+
 **3. `获取指定ID视频流信息`**
+
+在 Lycam+ 后台系统中获取指定ID的视频流 。  用于返回给终端用户或实现您自己的业务 。
 
 ```
 streamInstance.show('streamId', function(err, result) {
@@ -175,7 +307,36 @@ streamInstance.show('streamId', function(err, result) {
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
+| -------------- | :-------------: | :-------------: | :---------------------------:|
+| streamId       | true            | string          | stramId ( 视频流标识 )         |
+|
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                       |
+| ------------------ | :-------------: | :--------------------------: |
+| streamId           | string          | stramId ( 视频流标识 )         |
+| status             | string          | 直播状态(live， over，ready)   |
+| streamUrls         | json object     | 视频播放资源列表                |
+| uploadUrl          | string          | 推流地址                       |
+| chatUrl            | string          | 消息服务器地址                  |
+| chatChannel        | string          | 消息服务器频道                  |
+| resourceUrl        | string          | 视屏 HTML 主页地址              |
+| title              | string          | 视频流标题                     |
+| description        | string          | 视频流描述                     |
+| thumbnailUrl       | string          | 视频流封面地址                  | 
+| startLat           | float           | 开始视频的维度坐标               |
+| startLon           | float           | 开始视频的经度坐标               |
+| country            | string          | 国家                           |
+| state              | string          | 省份                           |
+| city               | string          | 城市                           |
+| privacy            | bool            | 是否私有视频（ true是，false否 ） |
+| extraInfo          | object          | 自定义用户信息 ，格式为 json      |
+
 **4. `获取视频流列表`**
+
+获取 Lycam+ 后台系统中视频流列表 。用于返回给终端用户或实现您自己的业务 。
 
 ```
 streamInstance.list(function(err, result) {
@@ -183,15 +344,49 @@ streamInstance.list(function(err, result) {
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
+| -------------- | :-------------: | :-------------: | :---------------------------------:|
+| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
+| page           | false           | int             | 返回第几页 ，默认第 1 页               |
+| sort           | false           | string          | 排序字段（ id，description，created ）|
+| order          | false           | string          | 排序方向（ asc，desc ）                |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                         |
+| ------------------ | :-------------: | :----------------------------: |
+| totalItems         | int             | 记录总数                         |
+| resultsPerPage     | int             | 每一页数量                       |
+| nextPageAvailable  | bool            | 是否有下一页                     | 
+| items              | array           | 视频流清单数组                    |
+
 **5. `获取指定时间前视频流列表`**
 
+在 Lycam+ 后台系统获取指定时间前的视频流列表 。 用于返回给终端用户或实现您自己的业务 。
+
 ```
-streamInstance.listSince(timestamp, function(err, result) {
+streamInstance.listSince(timestamp, resultsPerPage, function(err, result) {
     // 您的代码
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
+| -------------- | :-------------: | :-------------: | :---------------------------------:|
+| timestamp      | true            | long            | timestamp ( unix timestamp )       |
+| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                         |
+| ------------------ | :-------------: | :----------------------------: |
+| totalItems         | int             | 记录总数                         |
+| resultsPerPage     | int             | 每一页数量                       |
+| nextPageAvailable  | bool            | 是否有下一页                     | 
+| items              | array           | 视频流清单数组                    |
+
 **6. `通过关键词搜索视频流`**
+
+通过关键词在 Lycam+ 后台系统获取视频流列表 。 用于返回给终端用户或实现您自己的业务 。
 
 ```
 var params = {
@@ -203,7 +398,26 @@ streamInstance.searchByKeyword(params, function(err, result) {
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
+| -------------- | :-------------: | :-------------: | :---------------------------------:|
+| keyword        | true            | string          | 搜索关键词                           |
+| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
+| page           | false           | int             | 返回第几页 ，默认第 1 页               |
+| sort           | false           | string          | 排序字段（ id，description，created ）|
+| order          | false           | string          | 排序方向（ asc，desc ）               |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                         |
+| ------------------ | :-------------: | :----------------------------: |
+| totalItems         | int             | 记录总数                         |
+| resultsPerPage     | int             | 每一页数量                       |
+| nextPageAvailable  | bool            | 是否有下一页                     | 
+| items              | array           | 视频流清单数组                    |
+
 **7. `通过地理位置搜索视频流`**
+
+通过地理位置在 Lycam+ 后台系统获取视频流列表 。 用于返回给终端用户或实现您自己的业务 。
 
 ```
 var params = {
@@ -216,10 +430,41 @@ streamInstance.searchByLocation(params, function(err, result) {
 });
 ```
 
+**请求参数**
+| 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
+| -------------- | :-------------: | :-------------: | :---------------------------------:|
+| lon            | true            | float           | 经度
+| lat            | true            | float           | 纬度
+| radius         | true            | float           | 搜索半径
+| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
+| page           | false           | int             | 返回第几页 ，默认第 1 页               |
+| sort           | false           | string          | 排序字段（ id，description，created ）|
+| order          | false           | string          | 排序方向（ asc，desc ）               |
+
+**返回字段**
+| 返回字段            | 数据类型         | 参数说明                         |
+| ------------------ | :-------------: | :----------------------------: |
+| totalItems         | int             | 记录总数                         |
+| resultsPerPage     | int             | 每一页数量                       |
+| nextPageAvailable  | bool            | 是否有下一页                     | 
+| items              | array           | 视频流清单数组                    |
+
 **8. `销毁指定ID视频流`**
+
+销毁在 Lycam+ 后台系统中指定ID的视频流 。
 
 ```
 streamInstance.destroy('streamId', function(err, result) {
     // 您的代码
 });
 ```
+
+**请求参数**
+| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
+| ------------- | :-------------: | :-------------: | :-----------------------: |
+| streamId      | true            | string          | stramId ( 视频流标识 )      |
+
+**返回字段**
+| 返回字段       | 数据类型         | 参数说明                         |
+| ------------- | :-------------: | :----------------------------: |
+| success       | bool            | 成功标志 。成功 true，失败 false   |
