@@ -84,12 +84,14 @@ userInstance.create(params)
 ```
 
 **请求参数**
+
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                                 |
 | ------------- | :-------------: | :-------------: | :-------------------------------------: |
 | username      | false           | string          | 用户名，长度为6-80位，如果为空将随机生成      |
 | password      | false           | string          | 用户密码，长度8-16位，如果为空将随机生成      |
 
 **返回字段**
+
 | 返回字段       | 数据类型         | 参数说明                                 |
 | ------------- | :-------------: | :-------------------------------------: |
 | username      | string          | 用户名                                   |
@@ -107,11 +109,13 @@ userInstance.assume('uuid', '*', function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
 | ------------- | :-------------: | :-------------: | :-----------------------: |
 | uuid          | true            | string          | 用户唯一身份标识( 即uuid )   |
 
 **返回字段**
+
 | 返回字段       | 数据类型         | 参数说明                                          |
 | ------------- | :-------------: | :---------------------------------------------: |
 | success       | bool            | 成功标志，成功 true，失败false                      |
@@ -128,12 +132,14 @@ userInstance.auth('username', 'password', function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
 | ------------- | :-------------: | :-------------: | :-----------------------: |
 | username      | true            | string          | 用户名，长度为6-80位         |
 | password      | true            | string          | 用户新密码，长度8-16位       |
 
 **返回字段**
+
 | 返回字段       | 数据类型         | 参数说明                            |
 | ------------- | :-------------: | :-------------------------------: |
 | success       | bool            | 成功标志，成功 true，失败false       |
@@ -150,12 +156,14 @@ userInstance.updatePassword('username', 'newpassword', function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
 | ------------- | :-------------: | :-------------: | :-----------------------: |
 | username      | true            | string          | 用户名，长度为6-80位         |
 | password      | true            | string          | 用户新密码，长度8-16位       |
 
 **返回字段**
+
 | 返回字段       | 数据类型         | 参数说明                         |
 | ------------- | :-------------: | :----------------------------: |
 | success       | bool            | 成功标志，成功 true，失败false    |
@@ -174,6 +182,7 @@ userInstance.search(params, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                     |
 | -------------- | :-------------: | :-------------: | :--------------------------:|
 | username       | true            | string          | 用户名                       |
@@ -183,6 +192,7 @@ userInstance.search(params, function(err, result) {
 | order          | false           | string          | 排序方向（ asc，desc ）         |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                         |
 | ------------------ | :-------------: | :----------------------------: |
 | totalItems         | int             | 记录总数                        |
@@ -213,6 +223,7 @@ streamInstance.create(params, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
 | -------------- | :-------------: | :-------------: | :---------------------------:|
 | uuid           | false           | string          | 用户唯一身份标识( 即uuid )      |
@@ -228,6 +239,7 @@ streamInstance.create(params, function(err, result) {
 | extraInfo      | false           | json object     | 自定义用户信息，格式为 json       |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                       |
 | ------------------ | :-------------: | :--------------------------: |
 | streamId           | string          | stramId ( 视频流标识 )         |
@@ -262,6 +274,7 @@ streamInstance.update('streamId', params, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
 | -------------- | :-------------: | :-------------: | :---------------------------:|
 | title          | false           | string          | 视频流标题                     |
@@ -278,6 +291,7 @@ streamInstance.update('streamId', params, function(err, result) {
 | extraInfo      | false           | json object     | 自定义用户信息，格式为 json       |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                       |
 | ------------------ | :-------------: | :--------------------------: |
 | streamId           | string          | stramId ( 视频流标识 )         |
@@ -296,7 +310,6 @@ streamInstance.update('streamId', params, function(err, result) {
 | privacy            | bool            | 是否私有视频（ true是，false否 ） |
 | ...                |                 | 其它视频流参数
 
-
 **3. `获取指定ID视频流信息`**
 
 在 Lycam+ 后台系统中获取指定ID的视频流 。  用于返回给终端用户或实现您自己的业务 。
@@ -308,12 +321,14 @@ streamInstance.show('streamId', function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
 | -------------- | :-------------: | :-------------: | :---------------------------:|
 | streamId       | true            | string          | stramId ( 视频流标识 )         |
 |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                       |
 | ------------------ | :-------------: | :--------------------------: |
 | streamId           | string          | stramId ( 视频流标识 )         |
@@ -345,6 +360,7 @@ streamInstance.list(function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
 | -------------- | :-------------: | :-------------: | :---------------------------------:|
 | resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
@@ -353,6 +369,7 @@ streamInstance.list(function(err, result) {
 | order          | false           | string          | 排序方向（ asc，desc ）                |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                         |
 | ------------------ | :-------------: | :----------------------------: |
 | totalItems         | int             | 记录总数                         |
@@ -371,12 +388,14 @@ streamInstance.listSince(timestamp, resultsPerPage, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
 | -------------- | :-------------: | :-------------: | :---------------------------------:|
 | timestamp      | true            | long            | timestamp ( unix timestamp )       |
 | resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行            |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                         |
 | ------------------ | :-------------: | :----------------------------: |
 | totalItems         | int             | 记录总数                         |
@@ -399,6 +418,7 @@ streamInstance.searchByKeyword(params, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
 | -------------- | :-------------: | :-------------: | :---------------------------------:|
 | keyword        | true            | string          | 搜索关键词                           |
@@ -408,6 +428,7 @@ streamInstance.searchByKeyword(params, function(err, result) {
 | order          | false           | string          | 排序方向（ asc，desc ）               |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                         |
 | ------------------ | :-------------: | :----------------------------: |
 | totalItems         | int             | 记录总数                         |
@@ -431,6 +452,7 @@ streamInstance.searchByLocation(params, function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                            |
 | -------------- | :-------------: | :-------------: | :---------------------------------:|
 | lon            | true            | float           | 经度
@@ -442,6 +464,7 @@ streamInstance.searchByLocation(params, function(err, result) {
 | order          | false           | string          | 排序方向（ asc，desc ）               |
 
 **返回字段**
+
 | 返回字段            | 数据类型         | 参数说明                         |
 | ------------------ | :-------------: | :----------------------------: |
 | totalItems         | int             | 记录总数                         |
@@ -460,11 +483,13 @@ streamInstance.destroy('streamId', function(err, result) {
 ```
 
 **请求参数**
+
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
 | ------------- | :-------------: | :-------------: | :-----------------------: |
 | streamId      | true            | string          | stramId ( 视频流标识 )      |
 
 **返回字段**
+
 | 返回字段       | 数据类型         | 参数说明                         |
 | ------------- | :-------------: | :----------------------------: |
 | success       | bool            | 成功标志 。成功 true，失败 false   |
