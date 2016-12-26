@@ -15,4 +15,4 @@ setTimeout(function(){
     });
 
     run();
-}, 3000);
+}, 5000);

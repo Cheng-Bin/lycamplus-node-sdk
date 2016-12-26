@@ -118,4 +118,4 @@ setTimeout(function() {
     });
 
     run();
-}, 2000);
+}, 5000);
