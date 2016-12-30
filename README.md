@@ -135,8 +135,8 @@ userInstance.auth('username', 'password', function(err, result) {
 
 | 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
 | ------------- | :-------------: | :-------------: | :-----------------------: |
-| username      | true            | string          | 用户名，长度为6-80位         |
-| password      | true            | string          | 用户新密码，长度8-16位       |
+| username      | true            | string          | 用户名                     |
+| password      | true            | string          | 用户密码                    |
 
 **返回字段**
 
