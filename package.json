@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cheng-Bin/lycamplus-node-sdk.git"
+    "url": "git+https://github.com/lycam-dev/lycamplus-node-sdk.git"
   },
   "keywords": [
     "lycamplus",
@@ -16,12 +16,12 @@
     "live",
     "sdk"
   ],
-  "author": "chapin",
+  "author": "lycamplus",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Cheng-Bin/lycamplus-node-sdk/issues"
+    "url": "https://github.com/lycam-dev/lycamplus-node-sdk.git/issues"
   },
-  "homepage": "https://github.com/Cheng-Bin/lycamplus-node-sdk#readme",
+  "homepage": "https://github.com/lycam-dev/lycamplus-node-sdk.git#readme",
   "dependencies": {
     "bluebird": "^3.4.7",
     "bluebird-nodeify": "^1.1.1",
