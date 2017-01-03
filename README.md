@@ -14,7 +14,7 @@ npm install lycam-node-sdk
 也可以从 Github 进行下载安装
 
 ```shell
-$ git clone https://github.com/Cheng-Bin/lycamplus-node-sdk.git
+$ git clone https://github.com/lycam-dev/lycamplus-node-sdk.git
 $ cd lycamplus-node-sdk
 $ npm install .
 ```
