@@ -8,7 +8,7 @@
 您可以从 npm 进行安装
 
 ```shell
-npm install lycam-node-sdk
+npm install lycamplus-node-sdk
 ```
 
 也可以从 Github 进行下载安装
