@@ -78,8 +78,7 @@ function assumeHandle(req, res, next) {
         return next();
     }
 
-    // '*'： 所有资源
-    userInstance.assume(uuid, '*', function(err, result) {
+    userInstance.assume(uuid, function(err, result) {
         if (err) {
             console.error('get token failed : ', err);
             res.send('get token failed : ' + err.message);

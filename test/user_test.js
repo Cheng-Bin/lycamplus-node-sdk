@@ -36,7 +36,7 @@ setTimeout(function() {
         
         describe('User.assume()', function() {
             it('it should have token property', function(done) {
-                userInstance.assume(userObj.uuid, '*', function(err, result) {
+                userInstance.assume(userObj.uuid, function(err, result) {
                     if (err) {
                         done(err);
                     } else {

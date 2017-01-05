@@ -97,7 +97,7 @@ userInstance.create(username, password)
 
 用户访问Lycam+资源操作接口（比如：推流、收看）时需要用户鉴权，我们使用token进行验证 。
 ```
-userInstance.assume('uuid', '*', function(err, result) {
+userInstance.assume('uuid', function(err, result) {
     // 您的代码
 });
 ```
