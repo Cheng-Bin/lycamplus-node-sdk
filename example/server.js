@@ -24,8 +24,6 @@ server.use(restify.urlEncodedBodyParser());
 // 3. 定义路由
 //（1）用户
 server.post('/user', createUserHandle);         // 创建用户
-server.post('/auth', authHandle);               // 用户密码验证
-server.put('/password', updatePasswordHandle);  // 用户密码修改
 server.post('/assume', assumeHandle);           // 获取指定用户token，用于api鉴权
 
 //（2）视频流
@@ -57,67 +55,18 @@ function createUserHandle(req, res, next) {
         res.send('username and password is required.');
         return next();
     }
-    var params = {username: username, password: password};
-    userInstance.create(params, function(err) {
+    userInstance.create(username, password, function(err, result) {
         if (err) {
             console.error('create user failed : ', err);
             res.send('create user failed : ' + err.message);
             return next(err);
         }
         console.log('create user ' + username + ' success.');
-        res.send('create user ' + username + ' success');
+        res.send(result);
         return next();
     });
 }
 
-
-// 用户密码验证
-function authHandle(req, res, next) {
-    var data = JSON.parse(req.body);
-    var username = data.username;
-    var password = data.password;
-    if (!username || !password) {
-        res.send('username and password is required.');
-        return next();
-    }
-
-     // 验证用户密码（sdk接口同时支持callback 和 promise）
-    userInstance.auth(username, password)
-                .then(function(result) {
-                    res.send(result);
-                    return next();
-                })
-                .catch(function(err) {
-                    console.error('login failed : ', err.message);
-                    res.send('login failed : ' + err.message);
-                    return next(err);
-                });
-}
-
-
-// 更新密码
-function updatePasswordHandle(req, res, next) {
-    var data = JSON.parse(req.body);
-    var uuid = data.uuid;               // 用户uuid
-    var password = data.password;       // 新密码
-    if (!uuid || !password) {
-        res.send('uuid and password is required.');
-        return next();
-    }
-
-    // 更新用户密码（sdk接口同时支持callback 和 promise）
-    userInstance.updatePassword(uuid, password)
-                .then(function(result) {
-                    console.log('updatePassword success');
-                    res.send('updatePassword success');
-                })
-                .catch(function(err) {
-                    console.error('updatePassword failed : ', err);
-                    res.send('updatePassword failed : ' + err.message);
-                    return next(err);
-                });
-
-}
 
 // 获取指定用户token，用于api鉴权
 function assumeHandle(req, res, next) {
@@ -243,5 +192,3 @@ function destroyStreamHandle(req, res, next) {
         return next();
     });
 }
-
-

@@ -58,23 +58,17 @@ var userInstance = lycamPlus.newUser();
 
 创建用户到 Lycam+ 系统中 ，以便用户操作 API 接口鉴权使用 。
 ```
-var params = {
-    username: 'admin123',
-    password: 'admin123'
-    ...
-};
-userInstance.create(params, function(err, result) {
+var username: 'admin123';
+var password: 'admin123';
+userInstance.create(username, password, function(err, result) {
     // 您的代码
 });
 ```
 该 SDK 所有 API ，我们都提供了 callback 和 Promise 两种返回操作 。所以 ，您也可以使用如下方式 ：
 ```
-var params = {
-    username: 'admin123',
-    password: 'admin123'
-    ...
-};
-userInstance.create(params)
+var username: 'admin123';
+var password: 'admin123';
+userInstance.create(username, password)
             .then(function(result) {
                 // 您的逻辑代码
             })
@@ -122,83 +116,6 @@ userInstance.assume('uuid', '*', function(err, result) {
 | scope         | string          | 授权资源范围，`*`表示所有资源                        |
 | token         | json object     | token对象 。包括 access_token，expires_in 字段等... |
 
-**3. `用户密码验证`**
-
-如果您不想在自己的后台系统中做密码验证功能 ，可以直接使用我们给您提供的验证接口 。
-```
-userInstance.auth('username', 'password', function(err, result) {
-    // 您的代码
-});
-```
-
-**请求参数**
-
-| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
-| ------------- | :-------------: | :-------------: | :-----------------------: |
-| username      | true            | string          | 用户名                     |
-| password      | true            | string          | 用户密码                    |
-
-**返回字段**
-
-| 返回字段       | 数据类型         | 参数说明                            |
-| ------------- | :-------------: | :-------------------------------: |
-| success       | bool            | 成功标志，成功 true，失败false       |
-| username      | string          | 用户名                             |
-| uuid          | string          | 用户用户唯一身份标识（ 登录成功时返回 ）|
-
-**4. `更新用户密码`**
-
-如果您不想在自己的后台系统中做密码修改功能 ，可以直接使用我们给您提供的修改接口 。
-```
-userInstance.updatePassword('username', 'newpassword', function(err, result) {
-    // 您的代码
-});
-```
-
-**请求参数**
-
-| 请求参数       | 是否必须         | 数据类型          | 参数说明                   |
-| ------------- | :-------------: | :-------------: | :-----------------------: |
-| username      | true            | string          | 用户名，长度为6-80位         |
-| password      | true            | string          | 用户新密码，长度8-16位       |
-
-**返回字段**
-
-| 返回字段       | 数据类型         | 参数说明                         |
-| ------------- | :-------------: | :----------------------------: |
-| success       | bool            | 成功标志，成功 true，失败false    |
-
-**5. `查询用户`**
-
-使用关键字查询已经注册到 Lycam+ 系统中的用户 ，便于您做第三方逻辑 。
-```
-var params = {
-    username: 'username',
-    ...
-};
-userInstance.search(params, function(err, result) {
-    // 您的代码
-});
-```
-
-**请求参数**
-
-| 请求参数        | 是否必须         | 数据类型          | 参数说明                     |
-| -------------- | :-------------: | :-------------: | :--------------------------:|
-| username       | true            | string          | 用户名                       |
-| resultsPerPage | false           | int             | 每页返回记录数 ，默认 10 行     |
-| page           | false           | int             | 返回第几页                    |
-| sort           | false           | string          | 排序字段（ id， name， created ）|
-| order          | false           | string          | 排序方向（ asc，desc ）         |
-
-**返回字段**
-
-| 返回字段            | 数据类型         | 参数说明                         |
-| ------------------ | :-------------: | :----------------------------: |
-| totalItems         | int             | 记录总数                        |
-| resultsPerPage     | int             | 每一页数量                       |
-| nextPageAvailable  | bool            | 是否有下一页                     | 
-| items              | array           | 用户清单数组                     |
 
 ## Stream 对象
 

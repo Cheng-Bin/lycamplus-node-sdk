@@ -1,6 +1,6 @@
 {
   "name": "lycamplus-node-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "lycamplus-node-sdk",
   "main": "index.js",
   "scripts": {

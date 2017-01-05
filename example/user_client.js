@@ -9,39 +9,19 @@ var client = clients.createClient({
   type: 'json'
 });
 
-var timestamp = _.now();
+
 var payload = {
-    username: 'test_' + timestamp,
+    username: 'test_' + _.now(),
     password: '6666666mn'
 };
 
-
 //创建用户
-client.post('/user', payload, function (err, req, res, obj) {
+client.post('/user', payload, function (err, req, res, user) {
     if (err) return;
-    console.log('/user: Server returned: %j\n', obj);
-});
-
- // 用户密码验证 + 获取token + 修改密码
-setTimeout(function() {
+    console.log('/user: Server returned: %j\n', user);
     
-    client.post('/auth', payload, function (err, req, res, user) {
-        console.log('/auth: Server returned, uuid = %j\n', user.uuid);
-
-        // 获取token
-        client.post('/assume', {uuid: user.uuid}, function (err, req, res, obj) {
-            console.log('/assume: Server returned : %j\n', obj);
-        });
-
-        // 修改密码
-        var passObj = {uuid: user.uuid, password: '6666666mm'};
-        client.put('/password', passObj, function (err, req, res, obj) {
-            console.log('/password: Server returned : %j\n', obj);
-        });
-
+    // 获取token
+    client.post('/assume', {uuid: user.uuid}, function (err, req, res, obj) {
+        console.log('/assume: Server returned : %j\n', obj);
     });
-
-}, 2000);
-
-
-
+});
