@@ -58,16 +58,16 @@ var userInstance = lycamPlus.newUser();
 
 创建用户到 Lycam+ 系统中 ，以便用户操作 API 接口鉴权使用 。
 ```
-var username: 'admin123';
-var password: 'admin123';
+var username = 'admin123';
+var password = 'admin123';
 userInstance.create(username, password, function(err, result) {
     // 您的代码
 });
 ```
 该 SDK 所有 API ，我们都提供了 callback 和 Promise 两种返回操作 。所以 ，您也可以使用如下方式 ：
 ```
-var username: 'admin123';
-var password: 'admin123';
+var username = 'admin123';
+var password = 'admin123';
 userInstance.create(username, password)
             .then(function(result) {
                 // 您的逻辑代码
