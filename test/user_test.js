@@ -19,9 +19,11 @@ setTimeout(function() {
 
          describe('User.create()', function() {
             it('it should return an obejct', function(done) {
-                var username = 'root_' + _.now();
-                var password = 'password';
-                userInstance.create(username, password, function(err, result) {
+                var params = {
+                    username: 'root_' + _.now(),
+                    password: 'password'
+                };
+                userInstance.create(params, function(err, result) {
                     if (err) {
                         done(err);
                     } else {

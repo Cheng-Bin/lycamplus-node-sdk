@@ -5,7 +5,7 @@ var _ = require('underscore');
 setTimeout(function() {
 
     describe('Stream', function() {
-        var uuid = '33527830-c99d-11e6-b9c8-8986900ae4ab';
+        var uuid = '9039f550-d703-11e6-9734-f5ae8989dd5f';
         var streamInstance = null;
         var streamObj = null;        
         before(function() {
@@ -23,6 +23,7 @@ setTimeout(function() {
                     if (err) {
                         done(err);
                     } else {
+                           console.log(result);
                         streamObj = result;
                         expect(result).to.be.an('object');
                         done();

@@ -1,7 +1,6 @@
 # Lycam+ 直播服务端Node.js SDK
 
-该 SDK 适用于 Node.js 0.4.7 及其以上版本 ，基于 [Lycam+ 官方直播 API](http://wiki.lycam.tv/index.php?title=LycamPlus_WEB_API_接口规范) 构建 。 若您的服务端是一个基于 Node.js 编写
-的网络程序，使用此 SDK ，能让您以非常便捷地方式接入我们的服务 ，同时也使得您的服务端更加轻盈 。
+该 SDK 适用于 Node.js 0.4.7 及其以上版本 ，基于LYCAM+官方直播API构建 。 若您的服务端是一个基于 Node.js 编写的网络程序，使用此 SDK ，能让您以非常便捷地方式接入我们的服务 ，同时也使得您的服务端更加轻盈 。
 
 ## 安装
 
@@ -58,17 +57,21 @@ var userInstance = lycamPlus.newUser();
 
 创建用户到 Lycam+ 系统中 ，以便用户操作 API 接口鉴权使用 。
 ```
-var username = 'admin123';
-var password = 'admin123';
+var params = {
+    username: 'admin123',
+    password: 'admin123'
+};
 userInstance.create(username, password, function(err, result) {
     // 您的代码
 });
 ```
 该 SDK 所有 API ，我们都提供了 callback 和 Promise 两种返回操作 。所以 ，您也可以使用如下方式 ：
 ```
-var username = 'admin123';
-var password = 'admin123';
-userInstance.create(username, password)
+var params = {
+    username: 'admin123',
+    password: 'admin123'
+};
+userInstance.create(params)
             .then(function(result) {
                 // 您的逻辑代码
             })
@@ -79,10 +82,15 @@ userInstance.create(username, password)
 
 **请求参数**
 
-| 请求参数       | 是否必须         | 数据类型          | 参数说明                                 |
+| 请求参数 | 是否必须 | 数据类型 | 参数说明 |
 | ------------- | :-------------: | :-------------: | :-------------------------------------: |
-| username      | false           | string          | 用户名，长度为6-80位，如果为空将随机生成      |
-| password      | false           | string          | 用户密码，长度8-16位，如果为空将随机生成      |
+| username | false | string | 用户名，长度为6-80位，如果为空将随机生成 |
+| password | false | string | 用户密码，长度8-16位，如果为空将随机生成 |
+| email | false | string | 邮件地址 |
+| phone | false | string | 手机号码 11-20 位 |
+| description | false | string | 描述 4-300个字符 |
+| displayName | false | string | 显示的昵称，2-20位 |
+| extraInfo | false | json | 自定义用户信息。格式为 json，比如：{ address:"成都市科华北路", tel:"0288519999"} |
 
 **返回字段**
 
@@ -143,7 +151,7 @@ streamInstance.create(params, function(err, result) {
 
 | 请求参数        | 是否必须         | 数据类型          | 参数说明                      |
 | -------------- | :-------------: | :-------------: | :---------------------------:|
-| uuid           | false           | string          | 用户唯一身份标识( 即uuid )      |
+| user           | false           | string          | 用户唯一身份标识( 即uuid )      |
 | title          | false           | string          | 视频流标题                     |
 | description    | false           | string          | 视频流描述                     |
 | thumbnailUrl   | false           | string          | 视频流封面地址                  | 

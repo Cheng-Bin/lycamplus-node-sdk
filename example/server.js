@@ -55,7 +55,11 @@ function createUserHandle(req, res, next) {
         res.send('username and password is required.');
         return next();
     }
-    userInstance.create(username, password, function(err, result) {
+    var params = {
+        username: username,
+        password: password
+    };
+    userInstance.create(params, function(err, result) {
         if (err) {
             console.error('create user failed : ', err);
             res.send('create user failed : ' + err.message);
