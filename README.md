@@ -61,7 +61,7 @@ var params = {
     username: 'admin123',
     password: 'admin123'
 };
-userInstance.create(username, password, function(err, result) {
+userInstance.create(params, function(err, result) {
     // 您的代码
 });
 ```
